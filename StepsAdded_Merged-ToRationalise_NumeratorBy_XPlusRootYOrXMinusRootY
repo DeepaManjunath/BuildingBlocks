@@ -1,0 +1,480 @@
+def ToRationalise_XMinusRootY(number):
+    
+    
+    
+    
+    
+        test2=number.find("-")
+        res2=number
+  
+    
+   
+    
+        number2_1=int(res2[:test2])
+        
+       
+        
+        number_between=(res2[test2+1:])
+        power=number_between.find("^")
+        number2_2=int(number_between[:power])
+        slash="/"
+        
+        number_between1=number_between[power+1:]
+        slash_index=number_between1.find(slash)
+        pow_number2=int(number_between1[slash_index+1:-1])
+        #pow_number2=float(1/pow_number2)
+        
+        
+   
+        Result_denominator=str(pow(number2_1,2)-number2_2)
+    
+    
+        Res1_number2_1=number2_1
+        
+        
+        greater=1
+        for i in range(2,11):
+            
+           
+            if(Res1_number2_1%i==0 and int(Result_denominator)%i==0):
+                if(i>greater):
+                    greater=i
+          
+        
+        i=greater
+        Res1_number2_1=convert_float_to_int(Res1_number2_1/i)
+                
+             
+        number2_1=convert_float_to_int(number2_1/i)
+        #res1=convert_float_to_int(int(res1)/i)
+        
+        
+        simplify=str(number2_2)+"^(1/"+str(pow_number2)+")"
+        
+        simplify=SimplifyingSquareRootInIrrationalNumber(simplify)
+     
+        
+        first_index=simplify.find("^")
+        
+        first=simplify[:first_index]
+        
+        Result_denominator=str(Res1_number2_1)+"+"+simplify
+                
+        
+        Result_numerator=str((Res1_number2_1*Res1_number2_1)-int(first))
+       
+        Final=Result_numerator+"/"+str(Result_denominator)
+    
+    
+    
+    
+   
+        return(Final)
+    
+  
+
+def ToRationalise_NumeratorBy_XMinusRootY(number):
+    
+   
+    slash_index=number.find("/")
+    
+    numerator=number[:slash_index]
+    denominator=number[slash_index+1:]
+    Final=ToRationalise_XMinusRootY(denominator)
+    
+   # print("numerator",numerator)
+    
+    slash_index=NthOccurenceOfSubString(Final,"/",1)
+    
+    
+    
+    final_numerator1=Final[:slash_index]
+    
+    Final_Numerator=Final[slash_index+1:]
+    
+   # print("Final_Numerator",Final_Numerator)
+    
+    test=int(final_numerator1)%int(numerator)
+    
+    if(test==0):
+        Final_Denominator=str(int(int(final_numerator1)/int(numerator)))
+        Final=Final_Numerator+"/"+Final_Denominator
+    
+    else:
+        
+       
+        plus_numerator_index=Final_Numerator.find("+")
+        
+        first_numerator=Final_Numerator[:plus_numerator_index]
+        
+        second_between=Final_Numerator[plus_numerator_index+1:]
+        
+        power_index=second_between.find("^")
+        second_numerator=second_between[:power_index]
+        
+        second_last=second_between[power_index:]
+        
+        result_first_numerator=int(first_numerator)*int(numerator)
+        
+        result_second_numerator=int(second_numerator)*int(numerator)
+        
+       
+        Result_Numerator=str(result_first_numerator)+"+"+str(result_second_numerator)+second_last
+        
+       
+        Final_Denominator=final_numerator1
+        
+        Final=Result_Numerator+"/"+Final_Denominator
+        
+       
+        
+        
+   
+    return(Final)
+
+
+
+
+
+
+
+
+
+
+
+
+import math    
+def convert_float_to_int(number) :
+    result1=number
+    
+    h="."
+    index=str(result1).find(h)
+    if(index>-1):
+        decimal_result1=str(result1)[index+1:]
+        
+        if(int(decimal_result1)==0):
+            result=int(result1)
+        else:
+           
+            result=round(result1,2)
+            
+            h="."
+            index=str(result).find(h)
+            if(index>-1):
+                decimal_result=str(result)[index+1:]
+        
+                if(int(decimal_result)==0):
+                    result=int(result)  
+                    
+    
+    return(result)
+
+
+
+
+def SimplifyingSquareRootInIrrationalNumber(number):
+    
+    
+    
+    
+   
+    res2=number
+    
+   
+ 
+   
+    
+   
+    
+   
+    
+   
+        
+    power=number.find("^")
+    number2_2=int(number[:power])
+    slash="/"
+        
+    number_between1=number[power+1:]
+    slash_index=number_between1.find(slash)
+    pow_number2=int(number_between1[slash_index+1:-1])
+   
+    count=1
+    i = 1
+    root=1
+    greater_test=1
+    num=number2_2
+    while i<=num:
+        
+        if num%i==0:
+            
+            count=int(num/i)
+            square_root=math.sqrt(i)
+        
+            index=str(square_root).find(".")
+            decimal_part=str(square_root)[index+1:]
+            
+            
+            if(decimal_part=="0"):
+                
+               
+                if(square_root>greater_test):
+                    greater_test=square_root
+                   
+                    root=num/i
+                    
+                    
+        i = i+1
+        
+   
+    
+    
+    if(greater_test>1):
+        greater_test=convert_float_to_int(greater_test)
+    
+        root=convert_float_to_int(root)
+      
+        Final=str(greater_test)+"*"+str(root)+"^(1/"+str(pow_number2)+")"
+    else:
+        
+        Final=number
+        
+       
+   
+   
+    return(Final)
+    
+  
+
+
+
+def ToRationalise_XPlusRootY(number):
+    
+    
+    
+    
+    
+        test2=number.find("+")
+        res2=number
+  
+    
+   
+    
+        number2_1=int(res2[:test2])
+        
+       
+        
+        number_between=(res2[test2+1:])
+        power=number_between.find("^")
+        number2_2=int(number_between[:power])
+        slash="/"
+        
+        number_between1=number_between[power+1:]
+        slash_index=number_between1.find(slash)
+        pow_number2=int(number_between1[slash_index+1:-1])
+        #pow_number2=float(1/pow_number2)
+        
+        
+   
+        Result_denominator=str(pow(number2_1,2)-number2_2)
+    
+    
+        Res1_number2_1=number2_1
+        
+        
+        greater=1
+        for i in range(2,11):
+            
+           
+            if(Res1_number2_1%i==0 and int(Result_denominator)%i==0):
+                if(i>greater):
+                    greater=i
+          
+        
+        i=greater
+        Res1_number2_1=convert_float_to_int(Res1_number2_1/i)
+                
+             
+        number2_1=convert_float_to_int(number2_1/i)
+        #res1=convert_float_to_int(int(res1)/i)
+        
+        
+        simplify=str(number2_2)+"^(1/"+str(pow_number2)+")"
+        
+        simplify=SimplifyingSquareRootInIrrationalNumber(simplify)
+     
+        
+        first_index=simplify.find("^")
+        
+        first=simplify[:first_index]
+        
+        Result_denominator=str(Res1_number2_1)+"-"+simplify
+                
+        
+        Result_numerator=str((Res1_number2_1*Res1_number2_1)-int(first))
+       
+        Final=str(Result_denominator)+"/"+Result_numerator
+    
+    
+    
+    
+   
+        return(Final)
+
+def NthOccurenceOfSubString(ini_str,sub_str,occurrence):  
+
+   
+ 
+    # Finding nth occurrence of substring
+    val = -1
+    for i in range(0, occurrence):
+      val = ini_str.find(sub_str, val + 1)
+    return(val)
+
+
+    
+def ToRationalise_NumeratorBy_XPlusRootY(number):
+    
+    slash_index=number.find("/")
+    
+    numerator=number[:slash_index]
+    denominator=number[slash_index+1:]
+    Final=ToRationalise_XPlusRootY(denominator)
+    
+   
+    
+    slash_index=NthOccurenceOfSubString(Final,"/",2)
+    
+    
+    
+    Final_Numerator=Final[:slash_index]
+    
+    final_numerator1=Final[slash_index+1:]
+    
+   
+    test=int(final_numerator1)%int(numerator)
+    
+    if(test==0):
+        Final_Denominator=str(int(int(final_numerator1)/int(numerator)))
+        Final=Final_Numerator+"/"+Final_Denominator
+    
+    else:
+        plus_numerator_index=Final_Numerator.find("-")
+        
+        first_numerator=Final_Numerator[:plus_numerator_index]
+        
+        second_between=Final_Numerator[plus_numerator_index+1:]
+        
+        power_index=second_between.find("^")
+        second_numerator=second_between[:power_index]
+        
+        second_last=second_between[power_index:]
+        
+        result_first_numerator=int(first_numerator)*int(numerator)
+        
+        result_second_numerator=int(second_numerator)*int(numerator)
+        
+        #print("result_first_numerator",result_first_numerator)
+        
+        Result_Numerator=str(result_first_numerator)+"+"+str(result_second_numerator)+second_last
+        
+        #print("Result_Numerator",Result_Numerator)
+        Final_Denominator=final_numerator1
+        
+        Final=Result_Numerator+"/"+Final_Denominator
+   
+        
+        
+    
+   
+    return(Final)
+    
+    
+def ToRationalise_NumeratorBy_XPlusRootYOrXMinusRootY(number):
+    
+      
+      plus_index=number.find("+")
+    
+      
+      if(plus_index>-1):
+            
+            final=ToRationalise_NumeratorBy_XPlusRootY(number)
+      elif(plus_index==-1):
+           
+            final=ToRationalise_NumeratorBy_XMinusRootY(number)  
+            
+      return(final)
+ 
+
+
+
+
+
+
+
+def StepsAdded_ToRationalise_NumeratorBy_XPlusRootYOrXMinusRootY(input_expression):
+    # Initialize the steps string
+    steps = []
+    
+    # Split the input into numerator and denominator
+    slash_index = input_expression.find('/')
+    numerator = input_expression[:slash_index]
+    denominator = input_expression[slash_index+1:]
+    
+    numerator = int(numerator)
+    
+    # Split the denominator into its 'X' and 'root Y' parts
+    if '+' in denominator:
+        X, root_Y = denominator.split('+')
+        sign = '+'
+    elif '-' in denominator:
+        X, root_Y = denominator.split('-')
+        sign = '-'
+    else:
+        return "Invalid input"
+    
+    X = int(X)
+    
+    # Parsing the value of Y from the root term
+    Y = int(root_Y.split('^')[0])
+    
+    # Step 1: Rationalizing the denominator
+    if(sign=="+"):
+        sign1="-"
+    else:
+        sign1="+"
+    steps.append(f"Step 1 - Rationalizing Denominator: {X} {sign} {root_Y} = ({X} {sign} {root_Y}) x ({X} {sign1} {root_Y}) / ({X} {sign1} {root_Y})")
+   
+    # Apply the logic of (a+b)(a-b) = a^2 - b^2
+    rationalized_denominator = X**2 - Y
+    
+    # Step 2: Calculating the rationalized denominator
+    steps.append(f"Step 2: = ({X**2} - {Y})/ ({X} {sign1} {root_Y})")
+    
+    
+    # Step 3: Reversing the rationalized denominator and multiplying with the numerator
+    reversed_denominator = X - Y**(1/2) if sign == '+' else X + Y**(1/2)
+    
+       
+    steps.append(f"Step 3: = {rationalized_denominator} / ({X} {sign1} {root_Y})")
+   
+    final=ToRationalise_NumeratorBy_XPlusRootYOrXMinusRootY(input_expression)
+    # Step 4: The final output
+    steps.append(f"Step 4: Final output: = {final}")
+    
+    return "\n".join(steps)
+
+# Test the function with some example inputs
+input1="2/4+5^(1/2)" 
+input2="1/4+5^(1/2)"
+input3="2/4-5^(1/2)"
+example_output = StepsAdded_ToRationalise_NumeratorBy_XPlusRootYOrXMinusRootY(input3) 
+
+example_output
+
+Output:
+
+Step 1 - Rationalizing Denominator: 4 - 5^(1/2) = (4 - 5^(1/2)) x (4 + 5^(1/2)) / (4 + 5^(1/2))
+Step 2: = (16 - 5)/ (4 + 5^(1/2))
+Step 3: = 11 / (4 + 5^(1/2))
+Step 4: Final output: = 8+10^(1/2)/11
+
